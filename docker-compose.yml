@@ -1,0 +1,51 @@
+version: '3'
+services:
+
+   wp:
+     restart: always
+     #build: ./data/Dockerfiles/wordpress
+     container_name: dc_wp
+     depends_on:
+       - wp-db
+     image: wordpress:latest
+     #ports:
+       #- "${HTTP_BIND:-0.0.0.0}:${HTTP_BIND_PORT:-8080}:${HTTP_PORT:-80}"
+     restart: always
+     volumes:
+       - ./data/wordpress/html:/var/www/html
+     environment:
+       WORDPRESS_DB_HOST: wp-db:3306
+       WORDPRESS_DB_USER: ${DBUSER}
+       WORDPRESS_DB_PASSWORD: ${DBPASS}
+       VIRTUAL_HOST: ${WORDPRESS_HOSTNAME}
+       VIRTUAL_PORT: ${HTTP_PORT:-80}
+       LETSENCRYPT_HOST: ${WORDPRESS_HOSTNAME}
+       LETSENCRYPT_EMAIL: ${WORDPRESS_ADMIN_MAIL}
+       WORDPRESS_HOSTNAME: ${WORDPRESS_HOSTNAME}
+       WORDPRESS_ADMIN: ${WORDPRESS_ADMIN}
+       WORDPRESS_PASS: ${WORDPRESS_PASS}
+       WORDPRESS_ADMIN_MAIL: ${WORDPRESS_ADMIN_MAIL}
+
+   wp-db:
+     restart: always
+     container_name: dc_wp-db
+     image: mysql:5.7
+     environment:
+       MYSQL_ROOT_PASSWORD: ${DBROOT}
+       MYSQL_DATABASE: ${DBNAME}
+       MYSQL_USER: ${DBUSER}
+       MYSQL_PASSWORD: ${DBPASS}
+     volumes:
+       - db_data:/var/lib/mysql
+
+   wp-cli:
+     image: tatemz/wp-cli
+     container_name: dc_wp-cli
+     volumes:
+       - ./data/wordpress/html:/var/www/html
+     entrypoint: wp  
+     command: "--info"
+
+volumes:
+    db_data:
+
