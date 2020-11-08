@@ -14,7 +14,7 @@ services:
      volumes:
        - ./data/wordpress/html:/var/www/html
      environment:
-       WORDPRESS_DB_HOST: wp-db:3306
+       WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: ${DBUSER}
        WORDPRESS_DB_PASSWORD: ${DBPASS}
        VIRTUAL_HOST: ${WORDPRESS_HOSTNAME}
