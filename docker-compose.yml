@@ -29,14 +29,14 @@ services:
    wp-db:
      restart: always
      container_name: dc_wp-db
-     image: mysql:5.7
+     image: mariadb:10.5.7
      environment:
        MYSQL_ROOT_PASSWORD: ${DBROOT}
        MYSQL_DATABASE: ${DBNAME}
        MYSQL_USER: ${DBUSER}
        MYSQL_PASSWORD: ${DBPASS}
      volumes:
-       - db_data:/var/lib/mysql
+       - ./data/mysql/html:/var/lib/mysql
 
    wp-cli:
      image: tatemz/wp-cli
