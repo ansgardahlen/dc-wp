@@ -36,7 +36,7 @@ services:
        MYSQL_USER: ${DBUSER}
        MYSQL_PASSWORD: ${DBPASS}
      volumes:
-       - ./data/mysql/html:/var/lib/mysql
+       - ./data/mysql:/var/lib/mysql
 
    wp-cli:
      image: tatemz/wp-cli
