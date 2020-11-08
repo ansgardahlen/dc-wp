@@ -1,10 +1,10 @@
 version: '3'
 services:
 
-   wp:
+   web:
      restart: always
      #build: ./data/Dockerfiles/wordpress
-     container_name: dc_wp
+     #container_name: dc_wp
      depends_on:
        - wp-db
      image: wordpress:latest
@@ -26,9 +26,9 @@ services:
        WORDPRESS_PASS: ${WORDPRESS_PASS}
        WORDPRESS_ADMIN_MAIL: ${WORDPRESS_ADMIN_MAIL}
 
-   wp-db:
+   db:
      restart: always
-     container_name: dc_wp-db
+     #container_name: dc_wp-db
      image: mariadb:10.5.7
      environment:
        MYSQL_ROOT_PASSWORD: ${DBROOT}
@@ -38,9 +38,9 @@ services:
      volumes:
        - ./data/mysql:/var/lib/mysql
 
-   wp-cli:
+   cli:
      image: tatemz/wp-cli
-     container_name: dc_wp-cli
+     #container_name: dc_wp-cli
      volumes:
        - ./data/wordpress/html:/var/www/html
      entrypoint: wp  
