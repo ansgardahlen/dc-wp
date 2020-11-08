@@ -6,7 +6,7 @@ services:
      #build: ./data/Dockerfiles/wordpress
      #container_name: dc_wp
      depends_on:
-       - wp-db
+       - db
      image: wordpress:latest
      #ports:
        #- "${HTTP_BIND:-0.0.0.0}:${HTTP_BIND_PORT:-8080}:${HTTP_PORT:-80}"
